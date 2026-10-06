@@ -37,6 +37,53 @@
             #binding-cells = <0>;
             bindings = <&macro_tap &kp N2 &kp N9 &kp N0 &kp N8 &kp N9 &kp N1>;
         };
+        
+        open_nx: open_nx {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            tap-ms = <10>;
+            wait-ms = <10>;
+            bindings
+                = <&macro_wait_time 500>
+                , <&macro_tap &kp LGUI>   // nhấn Win, chờ 500ms
+                , <&macro_wait_time 10>
+                , <&macro_tap &kp N>      // gõ N, chờ 10ms
+                , <&macro_wait_time 500>
+                , <&macro_tap &kp X>      // gõ X, chờ 500ms
+                , <&macro_tap &kp RET>    // Enter
+                ;
+        };
+        macro_code: macro_code {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            tap-ms = <10>;
+            wait-ms = <10>;
+            bindings
+                = <&macro_wait_time 500>
+                , <&macro_tap &kp LGUI>   // nhấn Win, chờ 500ms
+                , <&macro_wait_time 10>
+                , <&macro_tap &kp C &kp O &kp D>   // gõ C, O, D sát nhau
+                , <&macro_wait_time 500>
+                , <&macro_tap &kp E>      // gõ E, chờ 500ms
+                , <&macro_tap &kp RET>    // Enter
+                ;
+        };
+        macro_name: macro_name {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            tap-ms = <20>;
+            wait-ms = <20>;
+            bindings
+                = <&macro_tap
+                    &kp LS(N) &kp G &kp U &kp Y &kp E &kp E &kp N &kp X
+                    &kp SPACE
+                    &kp LS(H) &kp A &kp I &kp R
+                    &kp SPACE
+                    &kp LS(K) &kp Y &kp R
+                  >
+                ;
+        };
+
     };
 
     keymap {
@@ -57,8 +104,8 @@
             bindings = <
     &trans  &kp F1    &kp F2    &kp F3      &kp F4   &kp F5   &kp F6   &kp F7  &kp F8   &kp F9    &kp F10   &kp F11       &kp F12        &UF_RESET &kp INSERT
     &trans  &trans    &kp UP    &Device_USB &UF_BT1  &UF_BT2  &UF_BT3  &trans  &trans   &trans    &kp UP    &kp PAGE_UP   &kp PAGE_DOWN  &macro_genid 
-    &trans  &kp LEFT  &kp DOWN  &kp RIGHT   &trans   &trans   &trans   &trans  &trans   &kp LEFT  &kp DOWN  &kp RIGHT     &trans 
-    &macro_username  &trans    &trans    &trans      &trans   &trans   &trans   &trans  &trans   &trans    &kp LG(L)    &macro_passlogin        &trans
+    &trans  &kp LEFT  &kp DOWN  &kp RIGHT   &trans   &trans   &trans   &trans  &trans   &kp LEFT  &kp DOWN  &kp RIGHT     &macro_name
+    &macro_username  &trans    &trans    &macro_code      &trans   &trans   &open_nx   &trans  &trans   &trans    &kp LG(L)    &macro_passlogin        &trans
     &trans  &macro_pass91    &macro_pass90                            &trans                                    &kp CLCK  &macro_corp        &trans
             >;
         };
